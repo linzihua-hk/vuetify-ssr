@@ -1,13 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar class="flex-grow-0">
-      <v-app-bar-nav-icon>
-        <v-icon>mdi-vuetify</v-icon>
-      </v-app-bar-nav-icon>
-      <v-app-bar-title>
-        <div>Vuetify SSR Template</div>
-      </v-app-bar-title>
-    </v-app-bar>
+    <!--template:Tabs-->
     <v-main>
       <v-container>
         <v-card>
@@ -17,7 +10,7 @@
             <div>{{ `已访问次数：${count}` }}</div>
           </v-card-text>
           <v-card-text>
-            <v-form action="/postdata" method="POST">
+            <v-form method="POST">
               <v-text-field label="参数1" name="p1" :value="p1"></v-text-field>
               <v-text-field label="参数1" name="p2" :value="p2"></v-text-field>
               <v-btn type="submit">提交</v-btn>

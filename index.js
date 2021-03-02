@@ -1,7 +1,11 @@
 const express = require('express');
 const session = require('express-session');
 const libs = require('./utils/libs');
-const renderer = require('./utils/vuetify-renderer').createRenderer();
+const renderer = require('./utils/vuetify-renderer').createRenderer({
+    title: 'Vuetify SSR',
+    keywords: '',
+    description: '',
+});
 
 const server = express();
 server.use(libs);
@@ -21,18 +25,20 @@ server.use((req, res) => {
         count++;
     }
     req.session.count = count;
-    let data = {
-        url: req.url,
-        count,
-        p1: req.body.p1,
-        p2: req.body.p2,
-    };
-    let context = {
-        title: 'Vuetify SSR Template',
-        keywords: '123',
-        description: '345'
-    };
-    renderer.renderer(res, 'Home', data, context);
+    renderer.renderToString(res, 'Home', {
+        vue: {
+            url: req.baseUrl + req.path,
+            count,
+            p1: req.body.p1,
+            p2: req.body.p2,
+        },
+        vuetify: {
+            url: req.baseUrl + req.path,
+        },
+        html: {
+            title: req.path
+        }
+    });
 });
 
 module.exports = server;
